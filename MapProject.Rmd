@@ -1,0 +1,37 @@
+---
+title: "Map Project"
+author: "STP"
+date: "12/18/2020"
+output: html_document
+---
+## Map project
+
+This project will map some of my favorite restaurants on a map using leaflet and R Markdown. The project will be posted on GitHub.
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet)
+
+```
+
+## Producing the map
+
+I used Google Maps to obtain longitude and latitude information for a few of my favorite restaurants, and created a data frame with that information.
+
+```{r create data frame}
+
+restmap <- data.frame(name = c("Montage","Cottonwood Canyon", "Masala","Tapatio"),
+      lat = c(42.536389200476265,42.534515563548176, 42.51697428665051, 42.706651294018855),
+      lng = c(-92.44527667359372,-92.44704156713055, -92.45633751311594, -92.47644602348785))
+
+```
+
+The next code chunck generates the map and adds a pop-up with the restaurant name to the markers.
+
+```{r make the map}
+restmap %>% 
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(popup = restmap$name)
+```
+
